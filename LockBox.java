@@ -11,11 +11,17 @@ import java.util.prefs.Preferences;
 
 public class LockBox extends JFrame {
     private static final String APP_TITLE = "LockBox Password Manager";
+    private static final String APP_AUTHOR = "Made by lytexdev (Immanuel Mruk)";
     private static final String FILE_EXTENSION = "lbx";
-    private static final Color PRIMARY_COLOR = new Color(0, 123, 255);
-    private static final Color SECONDARY_COLOR = new Color(52, 58, 64);
-    private static final Color BACKGROUND_COLOR = new Color(248, 249, 250);
-    private static final Color TEXT_COLOR = new Color(33, 37, 41);
+    
+    // Lila/Pink Theme mit Dark Mode
+    private static final Color PRIMARY_COLOR = new Color(186, 104, 200);     // Lila
+    private static final Color ACCENT_COLOR = new Color(233, 30, 99);        // Pink
+    private static final Color BACKGROUND_COLOR = new Color(33, 33, 33);     // Dunkelgrau
+    private static final Color CARD_COLOR = new Color(66, 66, 66);           // Mittleres Grau
+    private static final Color TEXT_COLOR = new Color(255, 255, 255);        // Weiß
+    private static final Color TEXT_SECONDARY_COLOR = new Color(180, 180, 180); // Hellgrau
+    
     private static final Font TITLE_FONT = new Font("Segoe UI", Font.BOLD, 24);
     private static final Font HEADING_FONT = new Font("Segoe UI", Font.BOLD, 18);
     private static final Font NORMAL_FONT = new Font("Segoe UI", Font.PLAIN, 14);
@@ -58,7 +64,7 @@ public class LockBox extends JFrame {
         setIconImage(createLockIcon(32).getImage());
         
         // Apply modern look and feel
-        applyModernStyle();
+        applyDarkTheme();
         
         // Initialize auto-lock timer first
         initAutoLockTimer();
@@ -92,29 +98,40 @@ public class LockBox extends JFrame {
         }
     }
     
-    private void applyModernStyle() {
+    private void applyDarkTheme() {
         try {
             // Set system look and feel as base
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             
-            // Customize UI colors
+            // Customize UI colors for dark theme
             UIManager.put("Panel.background", BACKGROUND_COLOR);
-            UIManager.put("TextField.background", Color.WHITE);
+            UIManager.put("TextField.background", CARD_COLOR);
             UIManager.put("TextField.foreground", TEXT_COLOR);
             UIManager.put("TextField.caretForeground", PRIMARY_COLOR);
-            UIManager.put("PasswordField.background", Color.WHITE);
+            UIManager.put("PasswordField.background", CARD_COLOR);
             UIManager.put("PasswordField.foreground", TEXT_COLOR);
             UIManager.put("Button.background", PRIMARY_COLOR);
-            UIManager.put("Button.foreground", Color.WHITE);
+            UIManager.put("Button.foreground", TEXT_COLOR);
             UIManager.put("Label.foreground", TEXT_COLOR);
-            UIManager.put("List.background", Color.WHITE);
+            UIManager.put("CheckBox.foreground", TEXT_COLOR);
+            UIManager.put("List.background", CARD_COLOR);
             UIManager.put("List.foreground", TEXT_COLOR);
-            UIManager.put("List.selectionBackground", PRIMARY_COLOR);
-            UIManager.put("List.selectionForeground", Color.WHITE);
+            UIManager.put("List.selectionBackground", ACCENT_COLOR);
+            UIManager.put("List.selectionForeground", TEXT_COLOR);
             UIManager.put("ScrollPane.background", BACKGROUND_COLOR);
             UIManager.put("Menu.foreground", TEXT_COLOR);
+            UIManager.put("Menu.background", BACKGROUND_COLOR);
+            UIManager.put("MenuBar.background", CARD_COLOR);
             UIManager.put("MenuItem.foreground", TEXT_COLOR);
+            UIManager.put("MenuItem.background", CARD_COLOR);
+            UIManager.put("OptionPane.background", BACKGROUND_COLOR);
+            UIManager.put("OptionPane.messageForeground", TEXT_COLOR);
             UIManager.put("TabbedPane.background", BACKGROUND_COLOR);
+            UIManager.put("ComboBox.background", CARD_COLOR);
+            UIManager.put("ComboBox.foreground", TEXT_COLOR);
+            UIManager.put("Spinner.background", CARD_COLOR);
+            UIManager.put("Spinner.foreground", TEXT_COLOR);
+            UIManager.put("ToolBar.background", CARD_COLOR);
             
             // Update all components
             SwingUtilities.updateComponentTreeUI(this);
@@ -145,39 +162,53 @@ public class LockBox extends JFrame {
     
     private void createMenuBar() {
         JMenuBar menuBar = new JMenuBar();
+        menuBar.setBackground(CARD_COLOR);
         
         // File menu
         JMenu fileMenu = new JMenu("File");
         fileMenu.setFont(NORMAL_FONT);
+        fileMenu.setForeground(TEXT_COLOR);
         
         JMenuItem newItem = new JMenuItem("New Database");
         newItem.setFont(NORMAL_FONT);
+        newItem.setBackground(CARD_COLOR);
+        newItem.setForeground(TEXT_COLOR);
         newItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK));
         newItem.addActionListener(e -> createNewDatabase());
         
         JMenuItem openItem = new JMenuItem("Open Database");
         openItem.setFont(NORMAL_FONT);
+        openItem.setBackground(CARD_COLOR);
+        openItem.setForeground(TEXT_COLOR);
         openItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));
         openItem.addActionListener(e -> openExistingDatabase());
         
         JMenuItem saveItem = new JMenuItem("Save");
         saveItem.setFont(NORMAL_FONT);
+        saveItem.setBackground(CARD_COLOR);
+        saveItem.setForeground(TEXT_COLOR);
         saveItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK));
         saveItem.addActionListener(e -> saveDatabase());
         
         JMenuItem saveAsItem = new JMenuItem("Save As...");
         saveAsItem.setFont(NORMAL_FONT);
+        saveAsItem.setBackground(CARD_COLOR);
+        saveAsItem.setForeground(TEXT_COLOR);
         saveAsItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, 
                 InputEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
         saveAsItem.addActionListener(e -> saveDatabaseAs());
         
         JMenuItem lockItem = new JMenuItem("Lock Database");
         lockItem.setFont(NORMAL_FONT);
+        lockItem.setBackground(CARD_COLOR);
+        lockItem.setForeground(TEXT_COLOR);
         lockItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, InputEvent.CTRL_DOWN_MASK));
         lockItem.addActionListener(e -> logout());
         
         JMenuItem exitItem = new JMenuItem("Exit");
         exitItem.setFont(NORMAL_FONT);
+        exitItem.setBackground(CARD_COLOR);
+        exitItem.setForeground(TEXT_COLOR);
         exitItem.addActionListener(e -> exitApplication());
         
         fileMenu.add(newItem);
@@ -193,29 +224,40 @@ public class LockBox extends JFrame {
         // Edit menu
         JMenu editMenu = new JMenu("Edit");
         editMenu.setFont(NORMAL_FONT);
+        editMenu.setForeground(TEXT_COLOR);
         
         JMenuItem addAccountItem = new JMenuItem("Add New Entry");
         addAccountItem.setFont(NORMAL_FONT);
+        addAccountItem.setBackground(CARD_COLOR);
+        addAccountItem.setForeground(TEXT_COLOR);
         addAccountItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.CTRL_DOWN_MASK));
         addAccountItem.addActionListener(e -> addAccount());
         
         JMenuItem deleteAccountItem = new JMenuItem("Delete Entry");
         deleteAccountItem.setFont(NORMAL_FONT);
+        deleteAccountItem.setBackground(CARD_COLOR);
+        deleteAccountItem.setForeground(TEXT_COLOR);
         deleteAccountItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, InputEvent.CTRL_DOWN_MASK));
         deleteAccountItem.addActionListener(e -> deleteAccount());
         
         JMenuItem copyUsernameItem = new JMenuItem("Copy Username");
         copyUsernameItem.setFont(NORMAL_FONT);
+        copyUsernameItem.setBackground(CARD_COLOR);
+        copyUsernameItem.setForeground(TEXT_COLOR);
         copyUsernameItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B, InputEvent.CTRL_DOWN_MASK));
         copyUsernameItem.addActionListener(e -> copyUsername());
         
         JMenuItem copyPasswordItem = new JMenuItem("Copy Password");
         copyPasswordItem.setFont(NORMAL_FONT);
+        copyPasswordItem.setBackground(CARD_COLOR);
+        copyPasswordItem.setForeground(TEXT_COLOR);
         copyPasswordItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.CTRL_DOWN_MASK));
         copyPasswordItem.addActionListener(e -> copyPassword());
         
         JMenuItem generatePasswordItem = new JMenuItem("Generate Password");
         generatePasswordItem.setFont(NORMAL_FONT);
+        generatePasswordItem.setBackground(CARD_COLOR);
+        generatePasswordItem.setForeground(TEXT_COLOR);
         generatePasswordItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_G, InputEvent.CTRL_DOWN_MASK));
         generatePasswordItem.addActionListener(e -> generatePassword());
         
@@ -229,13 +271,18 @@ public class LockBox extends JFrame {
         // Tools menu
         JMenu toolsMenu = new JMenu("Tools");
         toolsMenu.setFont(NORMAL_FONT);
+        toolsMenu.setForeground(TEXT_COLOR);
         
         JMenuItem changePasswordItem = new JMenuItem("Change Master Password");
         changePasswordItem.setFont(NORMAL_FONT);
+        changePasswordItem.setBackground(CARD_COLOR);
+        changePasswordItem.setForeground(TEXT_COLOR);
         changePasswordItem.addActionListener(e -> changeMasterPassword());
         
         JMenuItem settingsItem = new JMenuItem("Settings");
         settingsItem.setFont(NORMAL_FONT);
+        settingsItem.setBackground(CARD_COLOR);
+        settingsItem.setForeground(TEXT_COLOR);
         settingsItem.addActionListener(e -> showSettings());
         
         toolsMenu.add(changePasswordItem);
@@ -244,9 +291,12 @@ public class LockBox extends JFrame {
         // Help menu
         JMenu helpMenu = new JMenu("Help");
         helpMenu.setFont(NORMAL_FONT);
+        helpMenu.setForeground(TEXT_COLOR);
         
         JMenuItem aboutItem = new JMenuItem("About LockBox");
         aboutItem.setFont(NORMAL_FONT);
+        aboutItem.setBackground(CARD_COLOR);
+        aboutItem.setForeground(TEXT_COLOR);
         aboutItem.addActionListener(e -> showAbout());
         
         helpMenu.add(aboutItem);
@@ -255,6 +305,15 @@ public class LockBox extends JFrame {
         menuBar.add(editMenu);
         menuBar.add(toolsMenu);
         menuBar.add(helpMenu);
+        
+        // Add author credit on the right
+        JMenu authorMenu = new JMenu(APP_AUTHOR);
+        authorMenu.setFont(SMALL_FONT);
+        authorMenu.setForeground(TEXT_SECONDARY_COLOR);
+        authorMenu.setEnabled(false);
+        
+        menuBar.add(Box.createHorizontalGlue());
+        menuBar.add(authorMenu);
         
         setJMenuBar(menuBar);
     }
@@ -286,14 +345,21 @@ public class LockBox extends JFrame {
         
         JLabel subtitleLabel = new JLabel("Secure Password Manager");
         subtitleLabel.setFont(new Font("Segoe UI", Font.PLAIN, 18));
-        subtitleLabel.setForeground(SECONDARY_COLOR);
+        subtitleLabel.setForeground(TEXT_COLOR);
         subtitleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        JLabel authorLabel = new JLabel(APP_AUTHOR);
+        authorLabel.setFont(new Font("Segoe UI", Font.ITALIC, 14));
+        authorLabel.setForeground(TEXT_SECONDARY_COLOR);
+        authorLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         logoPanel.add(logoLabel);
         logoPanel.add(Box.createVerticalStrut(20));
         logoPanel.add(titleLabel);
         logoPanel.add(Box.createVerticalStrut(10));
         logoPanel.add(subtitleLabel);
+        logoPanel.add(Box.createVerticalStrut(10));
+        logoPanel.add(authorLabel);
         
         // Recent files panel
         JPanel recentPanel = new JPanel();
@@ -310,20 +376,48 @@ public class LockBox extends JFrame {
         recentPanel.add(recentLabel);
         recentPanel.add(Box.createVerticalStrut(10));
         
+        // Fix for recent files
+        File appDir = new File(System.getProperty("user.home"), ".lockbox");
+        if (!appDir.exists()) {
+            appDir.mkdirs();
+        }
+        
+        // Create a dummy file in the .lockbox directory
+        File dummyFile = new File(appDir, "recent.lbx");
+        if (!dummyFile.exists()) {
+            try {
+                dummyFile.createNewFile();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        
         // Load and display recent files
         String[] recentFiles = getRecentFiles();
+        
+        // Force add the dummy file to recent files if none exist
+        if (recentFiles.length == 0) {
+            addRecentFile(dummyFile.getAbsolutePath());
+            recentFiles = getRecentFiles();
+        }
+        
         if (recentFiles.length > 0) {
             for (String file : recentFiles) {
                 if (file != null && !file.isEmpty()) {
-                    JPanel filePanel = createRecentFilePanel(file);
-                    recentPanel.add(filePanel);
-                    recentPanel.add(Box.createVerticalStrut(8));
+                    File f = new File(file);
+                    if (f.exists()) {
+                        JPanel filePanel = createRecentFilePanel(file);
+                        recentPanel.add(filePanel);
+                        recentPanel.add(Box.createVerticalStrut(8));
+                    }
                 }
             }
-        } else {
+        }
+        
+        if (recentPanel.getComponentCount() <= 2) { // Only label and strut
             JLabel noRecentLabel = new JLabel("No recent databases");
             noRecentLabel.setFont(NORMAL_FONT);
-            noRecentLabel.setForeground(new Color(108, 117, 125));
+            noRecentLabel.setForeground(TEXT_SECONDARY_COLOR);
             noRecentLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
             recentPanel.add(noRecentLabel);
         }
@@ -345,7 +439,7 @@ public class LockBox extends JFrame {
         buttonsPanel.setMaximumSize(new Dimension(400, 50));
         buttonsPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
         
-        JButton createButton = createStyledButton("Create New Database", new Color(40, 167, 69));
+        JButton createButton = createStyledButton("Create New Database", ACCENT_COLOR);
         createButton.setFont(NORMAL_FONT);
         createButton.addActionListener(e -> createNewDatabase());
         
@@ -371,15 +465,16 @@ public class LockBox extends JFrame {
         JScrollPane scrollPane = new JScrollPane(innerPanel);
         scrollPane.setBorder(null);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        scrollPane.setBackground(BACKGROUND_COLOR);
         
         welcomePanel.add(scrollPane, BorderLayout.CENTER);
     }
     
     private JPanel createRecentFilePanel(String filePath) {
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(Color.WHITE);
+        panel.setBackground(CARD_COLOR);
         panel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(222, 226, 230), 1),
+                BorderFactory.createLineBorder(new Color(80, 80, 80), 1),
                 BorderFactory.createEmptyBorder(10, 15, 10, 15)));
         panel.setMaximumSize(new Dimension(2000, 60));
         
@@ -390,17 +485,17 @@ public class LockBox extends JFrame {
         
         JLabel pathLabel = new JLabel(file.getParent());
         pathLabel.setFont(SMALL_FONT);
-        pathLabel.setForeground(new Color(108, 117, 125));
+        pathLabel.setForeground(TEXT_SECONDARY_COLOR);
         
         JPanel textPanel = new JPanel(new GridLayout(2, 1));
-        textPanel.setBackground(Color.WHITE);
+        textPanel.setBackground(CARD_COLOR);
         textPanel.add(fileLabel);
         textPanel.add(pathLabel);
         
         JButton openButton = new JButton("Open");
         openButton.setFont(SMALL_FONT);
-        openButton.setForeground(PRIMARY_COLOR);
-        openButton.setBackground(Color.WHITE);
+        openButton.setForeground(TEXT_COLOR);
+        openButton.setBackground(PRIMARY_COLOR);
         openButton.setBorder(BorderFactory.createLineBorder(PRIMARY_COLOR));
         openButton.setFocusPainted(false);
         openButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -418,15 +513,15 @@ public class LockBox extends JFrame {
             
             @Override
             public void mouseEntered(MouseEvent e) {
-                panel.setBackground(new Color(248, 249, 250));
-                textPanel.setBackground(new Color(248, 249, 250));
+                panel.setBackground(new Color(80, 80, 80));
+                textPanel.setBackground(new Color(80, 80, 80));
                 panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
             }
             
             @Override
             public void mouseExited(MouseEvent e) {
-                panel.setBackground(Color.WHITE);
-                textPanel.setBackground(Color.WHITE);
+                panel.setBackground(CARD_COLOR);
+                textPanel.setBackground(CARD_COLOR);
                 panel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             }
         });
@@ -437,7 +532,7 @@ public class LockBox extends JFrame {
     private JButton createStyledButton(String text, Color color) {
         JButton button = new JButton(text);
         button.setBackground(color);
-        button.setForeground(Color.WHITE);
+        button.setForeground(TEXT_COLOR);
         button.setFocusPainted(false);
         button.setBorderPainted(false);
         button.setFont(NORMAL_FONT);
@@ -472,7 +567,7 @@ public class LockBox extends JFrame {
         // Create toolbar
         JToolBar toolBar = new JToolBar();
         toolBar.setFloatable(false);
-        toolBar.setBackground(SECONDARY_COLOR);
+        toolBar.setBackground(CARD_COLOR);
         toolBar.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
         
         JButton newButton = createToolbarButton("New", "add");
@@ -496,8 +591,10 @@ public class LockBox extends JFrame {
         // Search field
         searchField = new JTextField(15);
         searchField.setFont(NORMAL_FONT);
+        searchField.setBackground(BACKGROUND_COLOR);
+        searchField.setForeground(TEXT_COLOR);
         searchField.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(206, 212, 218)),
+                BorderFactory.createLineBorder(new Color(80, 80, 80)),
                 BorderFactory.createEmptyBorder(5, 10, 5, 10)));
         searchField.putClientProperty("JTextField.placeholderText", "Search entries...");
         searchField.addKeyListener(new KeyAdapter() {
@@ -524,7 +621,9 @@ public class LockBox extends JFrame {
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
         splitPane.setBorder(null);
         splitPane.setDividerSize(5);
+        splitPane.setDividerLocation(300);
         splitPane.setContinuousLayout(true);
+        splitPane.setBackground(BACKGROUND_COLOR);
         
         // Account list panel
         JPanel leftPanel = new JPanel(new BorderLayout());
@@ -536,6 +635,8 @@ public class LockBox extends JFrame {
         accountList.setFont(NORMAL_FONT);
         accountList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         accountList.setCellRenderer(new AccountListCellRenderer());
+        accountList.setBackground(CARD_COLOR);
+        accountList.setForeground(TEXT_COLOR);
         accountList.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
                 displaySelectedAccount();
@@ -544,7 +645,8 @@ public class LockBox extends JFrame {
         });
         
         accountScrollPane = new JScrollPane(accountList);
-        accountScrollPane.setBorder(BorderFactory.createLineBorder(new Color(222, 226, 230)));
+        accountScrollPane.setBorder(BorderFactory.createLineBorder(new Color(80, 80, 80)));
+        accountScrollPane.setBackground(CARD_COLOR);
         
         leftPanel.add(accountScrollPane, BorderLayout.CENTER);
         
@@ -559,22 +661,27 @@ public class LockBox extends JFrame {
         
         splitPane.setLeftComponent(leftPanel);
         splitPane.setRightComponent(detailsPanel);
-        splitPane.setDividerLocation(300);
         
         contentPanel.add(splitPane, BorderLayout.CENTER);
         
         // Status bar
         JPanel statusPanel = new JPanel(new BorderLayout());
-        statusPanel.setBackground(new Color(233, 236, 239));
+        statusPanel.setBackground(CARD_COLOR);
         statusPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
         
         statusLabel = new JLabel("Ready");
         statusLabel.setFont(SMALL_FONT);
         statusLabel.setForeground(TEXT_COLOR);
         
+        JLabel authorLabel = new JLabel(APP_AUTHOR);
+        authorLabel.setFont(SMALL_FONT);
+        authorLabel.setForeground(TEXT_SECONDARY_COLOR);
+        authorLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        
         lockIcon = new JLabel(createLockIcon(16));
         
         statusPanel.add(statusLabel, BorderLayout.WEST);
+        statusPanel.add(authorLabel, BorderLayout.CENTER);
         statusPanel.add(lockIcon, BorderLayout.EAST);
         
         contentPanel.add(statusPanel, BorderLayout.SOUTH);
@@ -588,7 +695,7 @@ public class LockBox extends JFrame {
         
         JLabel emptyLabel = new JLabel("Select an entry or create a new one");
         emptyLabel.setFont(NORMAL_FONT);
-        emptyLabel.setForeground(new Color(108, 117, 125));
+        emptyLabel.setForeground(TEXT_SECONDARY_COLOR);
         
         JButton addNewButton = createStyledButton("Add New Entry", PRIMARY_COLOR);
         addNewButton.addActionListener(e -> addAccount());
@@ -625,6 +732,7 @@ public class LockBox extends JFrame {
         // Title
         JLabel titleLabel = new JLabel("Account Details");
         titleLabel.setFont(HEADING_FONT);
+        titleLabel.setForeground(TEXT_COLOR);
         titleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         formPanel.add(titleLabel);
         formPanel.add(Box.createVerticalStrut(20));
@@ -632,12 +740,16 @@ public class LockBox extends JFrame {
         // Website field
         JLabel websiteLabel = new JLabel("Website / Service");
         websiteLabel.setFont(NORMAL_FONT);
+        websiteLabel.setForeground(TEXT_COLOR);
         websiteLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         formPanel.add(websiteLabel);
         formPanel.add(Box.createVerticalStrut(5));
         
         websiteField = new JTextField();
         websiteField.setFont(NORMAL_FONT);
+        websiteField.setBackground(CARD_COLOR);
+        websiteField.setForeground(TEXT_COLOR);
+        websiteField.setCaretColor(ACCENT_COLOR);
         websiteField.setMaximumSize(new Dimension(2000, 35));
         websiteField.setAlignmentX(Component.LEFT_ALIGNMENT);
         formPanel.add(websiteField);
@@ -646,12 +758,16 @@ public class LockBox extends JFrame {
         // Username field
         JLabel usernameLabel = new JLabel("Username / Email");
         usernameLabel.setFont(NORMAL_FONT);
+        usernameLabel.setForeground(TEXT_COLOR);
         usernameLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         formPanel.add(usernameLabel);
         formPanel.add(Box.createVerticalStrut(5));
         
         usernameField = new JTextField();
         usernameField.setFont(NORMAL_FONT);
+        usernameField.setBackground(CARD_COLOR);
+        usernameField.setForeground(TEXT_COLOR);
+        usernameField.setCaretColor(ACCENT_COLOR);
         usernameField.setMaximumSize(new Dimension(2000, 35));
         usernameField.setAlignmentX(Component.LEFT_ALIGNMENT);
         formPanel.add(usernameField);
@@ -660,6 +776,7 @@ public class LockBox extends JFrame {
         // Password field with controls
         JLabel passwordLabel = new JLabel("Password");
         passwordLabel.setFont(NORMAL_FONT);
+        passwordLabel.setForeground(TEXT_COLOR);
         passwordLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         formPanel.add(passwordLabel);
         formPanel.add(Box.createVerticalStrut(5));
@@ -672,10 +789,14 @@ public class LockBox extends JFrame {
         
         passwordField = new JPasswordField();
         passwordField.setFont(NORMAL_FONT);
+        passwordField.setBackground(CARD_COLOR);
+        passwordField.setForeground(TEXT_COLOR);
+        passwordField.setCaretColor(ACCENT_COLOR);
         
         showPasswordCheckBox = new JCheckBox("Show");
         showPasswordCheckBox.setFont(SMALL_FONT);
         showPasswordCheckBox.setBackground(BACKGROUND_COLOR);
+        showPasswordCheckBox.setForeground(TEXT_COLOR);
         showPasswordCheckBox.addActionListener(e -> togglePasswordVisibility());
         
         passwordPanel.add(passwordField);
@@ -694,14 +815,19 @@ public class LockBox extends JFrame {
         
         generateButton = new JButton("Generate Password");
         generateButton.setFont(SMALL_FONT);
+        generateButton.setBackground(ACCENT_COLOR);
+        generateButton.setForeground(TEXT_COLOR);
         generateButton.addActionListener(e -> generatePassword());
         
         JLabel lengthLabel = new JLabel("Length:");
         lengthLabel.setFont(SMALL_FONT);
+        lengthLabel.setForeground(TEXT_COLOR);
         
         SpinnerNumberModel spinnerModel = new SpinnerNumberModel(16, 8, 64, 1);
         lengthSpinner = new JSpinner(spinnerModel);
         lengthSpinner.setMaximumSize(new Dimension(60, 30));
+        lengthSpinner.setBackground(CARD_COLOR);
+        lengthSpinner.setForeground(TEXT_COLOR);
         
         generatePanel.add(generateButton);
         generatePanel.add(Box.createHorizontalStrut(10));
@@ -731,6 +857,7 @@ public class LockBox extends JFrame {
         JScrollPane scrollPane = new JScrollPane(formPanel);
         scrollPane.setBorder(null);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        scrollPane.setBackground(BACKGROUND_COLOR);
         
         detailsPanel.add(scrollPane);
         detailsPanel.revalidate();
@@ -739,8 +866,8 @@ public class LockBox extends JFrame {
     
     private JButton createToolbarButton(String text, String iconName) {
         JButton button = new JButton(text);
-        button.setForeground(Color.WHITE);
-        button.setBackground(SECONDARY_COLOR);
+        button.setForeground(TEXT_COLOR);
+        button.setBackground(PRIMARY_COLOR);
         button.setBorderPainted(false);
         button.setFocusPainted(false);
         button.setFont(SMALL_FONT);
@@ -749,12 +876,12 @@ public class LockBox extends JFrame {
         button.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                button.setBackground(darken(SECONDARY_COLOR, 0.1f));
+                button.setBackground(ACCENT_COLOR);
             }
             
             @Override
             public void mouseExited(MouseEvent e) {
-                button.setBackground(SECONDARY_COLOR);
+                button.setBackground(PRIMARY_COLOR);
             }
         });
         
@@ -762,16 +889,23 @@ public class LockBox extends JFrame {
     }
     
     private ImageIcon createLockIcon(int size) {
-        // This is a simple placeholder. In a real app, you'd use proper icons.
+        // Upgraded lock icon with lila/pink colors
         BufferedImage image = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = image.createGraphics();
         
-        // Draw lock body
-        g2d.setColor(PRIMARY_COLOR);
+        // Enable anti-aliasing
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        
+        // Draw lock body with gradient
+        GradientPaint gradient = new GradientPaint(
+            size/4, size/3, PRIMARY_COLOR,
+            size*3/4, size*5/6, ACCENT_COLOR);
+        g2d.setPaint(gradient);
         g2d.fillRoundRect(size/4, size/3, size/2, size/2, size/8, size/8);
         
         // Draw lock shackle
-        g2d.setStroke(new BasicStroke(size/8));
+        g2d.setStroke(new BasicStroke(size/8, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+        g2d.setColor(ACCENT_COLOR);
         g2d.drawArc(size/4, size/8, size/2, size/3, 0, 180);
         
         g2d.dispose();
@@ -827,10 +961,22 @@ public class LockBox extends JFrame {
             JPasswordField confirmPassField = new JPasswordField(20);
             
             JPanel panel = new JPanel(new GridLayout(0, 1));
-            panel.add(new JLabel("Create a strong master password:"));
+            panel.setBackground(BACKGROUND_COLOR);
+            
+            JLabel titleLabel = new JLabel("Create a strong master password:");
+            titleLabel.setForeground(TEXT_COLOR);
+            panel.add(titleLabel);
             panel.add(masterPassField);
-            panel.add(new JLabel("Confirm password:"));
+            
+            JLabel confirmLabel = new JLabel("Confirm password:");
+            confirmLabel.setForeground(TEXT_COLOR);
+            panel.add(confirmLabel);
             panel.add(confirmPassField);
+            
+            // Update the UI components to match theme
+            UIManager.put("OptionPane.background", BACKGROUND_COLOR);
+            UIManager.put("Panel.background", BACKGROUND_COLOR);
+            UIManager.put("OptionPane.messageForeground", TEXT_COLOR);
             
             int result = JOptionPane.showConfirmDialog(this, panel, 
                     "New Database - Set Master Password", JOptionPane.OK_CANCEL_OPTION);
@@ -903,9 +1049,22 @@ public class LockBox extends JFrame {
         JPasswordField masterPassField = new JPasswordField(20);
         
         JPanel panel = new JPanel(new GridLayout(0, 1));
-        panel.add(new JLabel("Enter master password for:"));
-        panel.add(new JLabel(new File(filePath).getName()));
+        panel.setBackground(BACKGROUND_COLOR);
+        
+        JLabel titleLabel = new JLabel("Enter master password for:");
+        titleLabel.setForeground(TEXT_COLOR);
+        panel.add(titleLabel);
+        
+        JLabel filenameLabel = new JLabel(new File(filePath).getName());
+        filenameLabel.setForeground(TEXT_COLOR);
+        panel.add(filenameLabel);
+        
         panel.add(masterPassField);
+        
+        // Update the UI components to match theme
+        UIManager.put("OptionPane.background", BACKGROUND_COLOR);
+        UIManager.put("Panel.background", BACKGROUND_COLOR);
+        UIManager.put("OptionPane.messageForeground", TEXT_COLOR);
         
         int result = JOptionPane.showConfirmDialog(this, panel, 
                 "Open Database", JOptionPane.OK_CANCEL_OPTION);
@@ -1065,12 +1224,28 @@ public class LockBox extends JFrame {
         JPasswordField confirmPassField = new JPasswordField(20);
         
         JPanel panel = new JPanel(new GridLayout(0, 1));
-        panel.add(new JLabel("Current master password:"));
+        panel.setBackground(BACKGROUND_COLOR);
+        
+        JLabel currentLabel = new JLabel("Current master password:");
+        currentLabel.setForeground(TEXT_COLOR);
+        
+        JLabel newLabel = new JLabel("New master password:");
+        newLabel.setForeground(TEXT_COLOR);
+        
+        JLabel confirmLabel = new JLabel("Confirm new password:");
+        confirmLabel.setForeground(TEXT_COLOR);
+        
+        panel.add(currentLabel);
         panel.add(currentPassField);
-        panel.add(new JLabel("New master password:"));
+        panel.add(newLabel);
         panel.add(newPassField);
-        panel.add(new JLabel("Confirm new password:"));
+        panel.add(confirmLabel);
         panel.add(confirmPassField);
+        
+        // Update the UI components to match theme
+        UIManager.put("OptionPane.background", BACKGROUND_COLOR);
+        UIManager.put("Panel.background", BACKGROUND_COLOR);
+        UIManager.put("OptionPane.messageForeground", TEXT_COLOR);
         
         int result = JOptionPane.showConfirmDialog(this, panel, 
                 "Change Master Password", JOptionPane.OK_CANCEL_OPTION);
@@ -1121,13 +1296,23 @@ public class LockBox extends JFrame {
     private void showSettings() {
         JPanel panel = new JPanel(new GridLayout(0, 2, 10, 10));
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        panel.setBackground(BACKGROUND_COLOR);
         
         JLabel autoLockLabel = new JLabel("Auto-lock after (minutes):");
+        autoLockLabel.setForeground(TEXT_COLOR);
+        
         SpinnerNumberModel autoLockModel = new SpinnerNumberModel(autoLockMinutes, 1, 60, 1);
         JSpinner autoLockSpinner = new JSpinner(autoLockModel);
+        autoLockSpinner.setBackground(CARD_COLOR);
+        autoLockSpinner.setForeground(TEXT_COLOR);
         
         panel.add(autoLockLabel);
         panel.add(autoLockSpinner);
+        
+        // Update the UI components to match theme
+        UIManager.put("OptionPane.background", BACKGROUND_COLOR);
+        UIManager.put("Panel.background", BACKGROUND_COLOR);
+        UIManager.put("OptionPane.messageForeground", TEXT_COLOR);
         
         int result = JOptionPane.showConfirmDialog(this, panel, 
                 "Settings", JOptionPane.OK_CANCEL_OPTION);
@@ -1148,21 +1333,30 @@ public class LockBox extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        panel.setBackground(BACKGROUND_COLOR);
         
         JLabel logoLabel = new JLabel(createLockIcon(64));
         logoLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         JLabel titleLabel = new JLabel("LockBox Password Manager");
         titleLabel.setFont(TITLE_FONT);
+        titleLabel.setForeground(PRIMARY_COLOR);
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         JLabel versionLabel = new JLabel("Version 1.0");
         versionLabel.setFont(NORMAL_FONT);
+        versionLabel.setForeground(TEXT_COLOR);
         versionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         JLabel descriptionLabel = new JLabel("<html><center>A secure password manager<br>for storing and organizing your credentials.</center></html>");
         descriptionLabel.setFont(NORMAL_FONT);
+        descriptionLabel.setForeground(TEXT_COLOR);
         descriptionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        JLabel authorLabel = new JLabel(APP_AUTHOR);
+        authorLabel.setFont(NORMAL_FONT);
+        authorLabel.setForeground(ACCENT_COLOR);
+        authorLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         panel.add(logoLabel);
         panel.add(Box.createVerticalStrut(20));
@@ -1171,6 +1365,13 @@ public class LockBox extends JFrame {
         panel.add(versionLabel);
         panel.add(Box.createVerticalStrut(20));
         panel.add(descriptionLabel);
+        panel.add(Box.createVerticalStrut(20));
+        panel.add(authorLabel);
+        
+        // Update the UI components to match theme
+        UIManager.put("OptionPane.background", BACKGROUND_COLOR);
+        UIManager.put("Panel.background", BACKGROUND_COLOR);
+        UIManager.put("OptionPane.messageForeground", TEXT_COLOR);
         
         JOptionPane.showMessageDialog(this, panel, "About LockBox", JOptionPane.PLAIN_MESSAGE);
     }
@@ -1333,18 +1534,29 @@ public class LockBox extends JFrame {
     }
     
     private void addRecentFile(String filePath) {
+        // Ensure the file exists before adding to recent files
+        File file = new File(filePath);
+        if (!file.exists()) {
+            return;
+        }
+        
+        // Load existing recent files
         String[] recentFiles = getRecentFiles();
         StringBuilder newRecentFiles = new StringBuilder(filePath);
         
         // Add up to 4 previous recent files, skipping the current one if it's already in the list
         int count = 0;
-        for (String file : recentFiles) {
-            if (!file.equals(filePath) && count < 4) {
-                newRecentFiles.append("|").append(file);
-                count++;
+        for (String existingFile : recentFiles) {
+            if (existingFile != null && !existingFile.isEmpty() && !existingFile.equals(filePath) && count < 4) {
+                File f = new File(existingFile);
+                if (f.exists()) {
+                    newRecentFiles.append("|").append(existingFile);
+                    count++;
+                }
             }
         }
         
+        // Save the updated recent files list
         prefs.put("recentFiles", newRecentFiles.toString());
     }
     
@@ -1358,8 +1570,13 @@ public class LockBox extends JFrame {
             if (value instanceof Account) {
                 Account account = (Account) value;
                 label.setText("<html><b>" + account.getWebsite() + "</b><br>" +
-                             "<font size='2' color='#6c757d'>" + account.getUsername() + "</font></html>");
+                             "<font size='2' color='#b4b4b4'>" + account.getUsername() + "</font></html>");
                 label.setBorder(BorderFactory.createEmptyBorder(5, 8, 5, 8));
+                
+                if (!isSelected) {
+                    label.setBackground(CARD_COLOR);
+                    label.setForeground(TEXT_COLOR);
+                }
             }
             
             return label;
@@ -1368,7 +1585,11 @@ public class LockBox extends JFrame {
     
     public static void main(String[] args) {
         try {
+            // Use system look and feel as base
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            
+            // Enable dark mode on macOS (if supported)
+            System.setProperty("apple.awt.application.appearance", "system");
         } catch (Exception e) {
             e.printStackTrace();
         }
