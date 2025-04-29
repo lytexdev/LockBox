@@ -1,0 +1,55 @@
+# Java-Klassen
+*.class
+
+# Log-Dateien
+*.log
+
+# BlueJ-Dateien
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+out/
+
+# Eclipse
+.project
+.classpath
+.settings/
+bin/
+
+# VS Code
+.vscode/
+
+# Build-Verzeichnisse
+target/
+build/
+
+# Maven lokale Repositories (optional, meistens nicht nötig)
+# ~/.m2/repository/
+
+# Gradle
+.gradle/
+build/
+
+# Sonstige temporäre Dateien
+*.tmp
+*.bak
+*.swp
+*~.nib
+*.DS_Store
+Thumbs.db
+
+# Runtime-Dateien
+hs_err_pid*
+
+# Paket- und Cache-Dateien
+node_modules/
+
+# Docker
+docker-compose.override.yml
+.env
